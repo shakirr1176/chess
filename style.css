@@ -1,0 +1,267 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    margin: auto;
+    padding: 8px;
+    background-color: rgb(0, 0, 0);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.board{
+    width: 530px;
+    height: 530px;
+    background:   rgb(150, 67, 0);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: default;
+}
+
+.black-active{
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    bottom: 100%;
+    left: 0;
+    background:  rgb(243, 146, 0);
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    animation: blink 600ms linear infinite alternate;
+}
+
+.white-active{
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    top: 100%;
+    left: 0;
+    background:  rgb(243, 146, 0);
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    animation: blink 600ms linear infinite alternate;
+}
+
+@keyframes blink{
+    0% {
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.5;
+    }
+}
+
+
+
+.first-row,.second-row{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 25px;
+}
+
+.first-column,.second-column{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+}
+.second-column{
+    left: calc(100% - 25px);
+}
+.second-row{
+    top: calc(100% - 25px);
+}
+
+.first-row>div,.second-row>div,.first-column>div,.second-column>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+}
+
+.first-column>div,.second-column>div{
+    width: 25px;
+    height: 60px;
+}
+
+.chess-box{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+}
+
+.chess-box>div{
+    width: 60px;
+    height: 60px;
+}
+
+.white{
+    background: white;
+}
+
+.black{
+    background: url(chessBoard.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.box>div{
+    width:60px;
+    height:60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box>div>img{
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+}
+
+.active-box{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.active-box::after{
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: greenyellow;
+    position: absolute;
+}
+
+.path-box{
+    border: 2px solid red;
+}
+.no-event{
+    pointer-events: none;
+}
+
+.active{
+    border: 3px solid yellow;
+
+}
+
+.black-place,.white-place{
+    position: absolute;
+    width: 200px;
+    height: 530px;
+    left: -200px;
+    top: 0;
+    background: url(chessBoard.jpg);
+    background-position: center;
+    background-size: cover;
+    padding: 16px;
+    /* border: 2px solid  rgb(35, 146, 53) */
+}
+.white-place{
+    left: 100%;
+}
+
+.black-place > div, .white-place > div{
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.black-place > div >img, .white-place > div>img{
+    width: 40px;
+    height: 40px;
+}
+
+.start-alert{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0.5);
+    opacity: 0;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    z-index: 999;
+    letter-spacing: 20px;
+    transform-origin: center center;
+    pointer-events: none;
+}
+
+.start-animation{
+    animation: check-alert 1000ms linear;
+}
+
+@keyframes check-alert{
+    50%{
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+    }
+    100%{
+        opacity: 0;
+        transform: translate(-50%,-50%) scale(1.25);
+    }
+}
+
+.board{
+    transition: all 400ms ease-in;
+}
+
+.black-reserve-element,.white-reserve-element{
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.486);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.black-reserve-element > div, .white-reserve-element > div{
+    width: 220px;
+    height: 220px;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.black-reserve-element > div > div, .white-reserve-element > div > div{
+    width: 50%;
+    height: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.black-reserve-element > div > div:hover, .white-reserve-element > div > div:hover{
+    background: rgb(221, 221, 221);
+}
+
+.hidden{
+    display: none;
+}

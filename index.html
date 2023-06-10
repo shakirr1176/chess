@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>chess</title>
+</head>
+<body>
+<!-- <button class="choose choose-white" style="display: inline-block; background-color: white;">white</button>
+<button class="choose choose-black" style="display: inline-block; background-color: white;">black</button> -->
+    <div class="board">
+        
+        <div class="white-active"></div>
+        <div class="black-active"></div>
+
+        <div class="chess-box">
+            
+        </div>
+
+        <div class="first-row">
+            <div>a</div>
+            <div>b</div>
+            <div>c</div>
+            <div>d</div>
+            <div>e</div>
+            <div>f</div>
+            <div>g</div>
+            <div>h</div>
+        </div>
+        <div class="second-row">
+            <div>a</div>
+            <div>b</div>
+            <div>c</div>
+            <div>d</div>
+            <div>e</div>
+            <div>f</div>
+            <div>g</div>
+            <div>h</div>
+        </div>
+        <div class="first-column">
+            <div>8</div>
+            <div>7</div>
+            <div>6</div>
+            <div>5</div>
+            <div>4</div>
+            <div>3</div>
+            <div>2</div>
+            <div>1</div>
+        </div>
+        <div class="second-column">
+            <div>8</div>
+            <div>7</div>
+            <div>6</div>
+            <div>5</div>
+            <div>4</div>
+            <div>3</div>
+            <div>2</div>
+            <div>1</div>
+        </div>
+
+        <div class="black-place no-event"></div>
+        <div class="white-place no-event"></div>
+
+        <div class="black-reserve-element hidden">
+            <div>
+                <div data-cat="bishop" class="reserve-elmmt">
+                    <img src="./black/bishop-black.png" alt="">
+                </div>
+                <div data-cat="knight" class="reserve-elmmt">
+                    <img src="./black/knight-black.png" alt="">
+                </div>
+                <div data-cat="queen" class="reserve-elmmt">
+                    <img src="./black/queen-black.png" alt="">
+                </div>
+                <div data-cat="rook" class="reserve-elmmt">
+                    <img src="./black/rook-black.png" alt="">
+                </div>
+            </div>
+        </div>
+        
+        <div class="white-reserve-element hidden">
+            <div>
+                <div data-cat="bishop" class="reserve-elmmt">
+                    <img src="./white/bishop-white.png" alt="">
+                </div>
+                <div data-cat="knight" class="reserve-elmmt">
+                    <img src="./white/knight-white.png" alt="">
+                </div>
+                <div data-cat="queen" class="reserve-elmmt">
+                    <img src="./white/queen-white.png" alt="">
+                </div>
+                <div data-cat="rook" class="reserve-elmmt">
+                    <img src="./white/rook-white.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="start-alert start-animation">Start Now!</div>
+    </div>
+    <script src="chess.js"></script>
+</body>
+</html>
