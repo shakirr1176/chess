@@ -75,10 +75,13 @@ class Chess {
             });
         });
     }
+
     pawnMoveFunc() {
+
         let a = document.querySelectorAll(".pawn"),
             b = this.chessBox.querySelectorAll(".box"),
             c = this;
+
         a.forEach((a) => {
             a.addEventListener("click", () => {
                 if (!a.classList.contains("blk") && a.classList.contains("pawn")) {
@@ -92,17 +95,24 @@ class Chess {
                         e.forEach((f) => {
                             if (b[f])
                                 if (a.classList.contains("active"))
-                                    (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event") && b[f].classList.remove("no-event")),
-                                        b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row && b[e[2]].classList.remove("active-box"),
-                                        b[e[3]] && b[e[0]].dataset.row != b[e[3]].dataset.row && b[e[3]].classList.remove("active-box"),
-                                        b[e[0]] && b[e[0]].children[0] && b[e[0]].classList.remove("active-box"),
-                                        b[e[1]] && b[e[1]].children[0] && b[e[1]].classList.remove("active-box"),
-                                        ((15 < d && `${c.side[1]}` == a.dataset.color) || (48 > d && `${c.side[0]}` == a.dataset.color)) && b[e[1]] && b[e[1]].classList.remove("active-box"),
-                                        b[e[0]].children[0] && b[e[0]].children[0].dataset.color != a.dataset.color && b[e[1]] && b[e[1]].classList.remove("active-box"),
-                                        b[e[2]] && !b[e[2]].children[0] && b[e[2]].classList.remove("active-box"),
-                                        b[e[3]] && !b[e[3]].children[0] && b[e[3]].classList.remove("active-box");
-                                else {
+                                    (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event"),
+                                    b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row && b[e[2]].classList.remove("active-box"),
+                                    b[e[3]] && b[e[0]].dataset.row != b[e[3]].dataset.row && b[e[3]].classList.remove("active-box"),
+                                    b[e[0]] && b[e[0]].children[0] && b[e[0]].classList.remove("active-box"),
+                                    b[e[1]] && b[e[1]].children[0] && b[e[1]].classList.remove("active-box"),
+                                    ((15 < d && `${c.side[1]}` == a.dataset.color) || (48 > d && `${c.side[0]}` == a.dataset.color)) && b[e[1]] && b[e[1]].classList.remove("active-box"),
+                                    b[e[0]].children[0] && b[e[0]].children[0].dataset.color != a.dataset.color && b[e[1]] && b[e[1]].classList.remove("active-box"),
+                                    b[e[2]] && !b[e[2]].children[0] && b[e[2]].classList.remove("active-box"),
+                                    b[e[3]] && !b[e[3]].children[0] && b[e[3]].classList.remove("active-box"),
+                                    b[f].classList.contains("active-box") && b[f].classList.remove("no-event"))
+                                    else {
+
+                                    if(b[f].classList.contains("active-box")){
+                                        b[f].classList.add('no-event')
+                                    }
+
                                     b[f].classList.remove("active-box"), (c.isPros = !0);
+
                                     let a = document.querySelectorAll(".element");
                                     a.forEach((a) => {
                                         a.classList.remove("blk");
@@ -113,6 +123,7 @@ class Chess {
             });
         });
     }
+
     knightMoveClickFunc(a, b, c) {
         if (!a.classList.contains("blk") && a.classList.contains("knight")) {
             b.currentSelectedElement = a;
@@ -129,18 +140,24 @@ class Chess {
                             let g = 0;
                             a.dataset.color == b.side[1] && (g = 4),
                                 8 == c[d].dataset.column &&
-                                    (c[e[4 - g]] && c[e[4 - g]].classList.remove("active-box"),
-                                    c[e[5 - g]] && c[e[5 - g]].classList.remove("active-box"),
-                                    c[e[6 - g]] && c[e[6 - g]].classList.remove("active-box"),
-                                    c[e[7 - g]] && c[e[7 - g]].classList.remove("active-box")),
-                                7 == c[d].dataset.column && (c[e[6 - g]] && c[e[6 - g]].classList.remove("active-box"), c[e[7 - g]] && c[e[7 - g]].classList.remove("active-box")),
+                                    (c[e[4 - g]] && c[e[4 - g]].classList.remove("active-box"),c[e[4 - g]].classList.add("no-event"),
+                                    c[e[5 - g]] && c[e[5 - g]].classList.remove("active-box"),c[e[5 - g]].classList.add("no-event"),
+                                    c[e[6 - g]] && c[e[6 - g]].classList.remove("active-box"),c[e[6 - g]].classList.add("no-event"),
+                                    c[e[7 - g]] && c[e[7 - g]].classList.remove("active-box"),c[e[7 - g]].classList.add("no-event")),
+                                7 == c[d].dataset.column && (c[e[6 - g]] && c[e[6 - g]].classList.remove("active-box"),c[e[6 - g]].classList.add("no-event"), c[e[7 - g]] && c[e[7 - g]].classList.remove("active-box"),c[e[7 - g]] && c[e[7 - g]].classList.add("no-event")),
                                 1 == c[d].dataset.column &&
-                                    (c[e[0 + g]] && c[e[0 + g]].classList.remove("active-box"),
-                                    c[e[1 + g]] && c[e[1 + g]].classList.remove("active-box"),
-                                    c[e[2 + g]] && c[e[2 + g]].classList.remove("active-box"),
-                                    c[e[3 + g]] && c[e[3 + g]].classList.remove("active-box")),
-                                2 == c[d].dataset.column && (c[e[2 + g]] && c[e[2 + g]].classList.remove("active-box"), c[e[3 + g]] && c[e[3 + g]].classList.remove("active-box"));
+                                    (c[e[0 + g]] && c[e[0 + g]].classList.remove("active-box"),c[e[0 + g]].classList.add("no-event"),
+                                    c[e[1 + g]] && c[e[1 + g]].classList.remove("active-box"),c[e[1 + g]].classList.add("no-event"),
+                                    c[e[2 + g]] && c[e[2 + g]].classList.remove("active-box"),c[e[2 + g]].classList.add("no-event"),
+                                    c[e[3 + g]] && c[e[3 + g]].classList.remove("active-box"),c[e[3 + g]].classList.add("no-event")),
+                                2 == c[d].dataset.column && (c[e[2 + g]] && c[e[2 + g]].classList.remove("active-box"),c[e[2 + g]].classList.add("no-event"), c[e[3 + g]] && c[e[3 + g]].classList.remove("active-box"),c[e[3 + g]].classList.add("no-event"))
+                                
                         } else {
+
+                            if(c[f].classList.contains("active-box")){
+                                c[f].classList.add('no-event')
+                            }
+
                             c[f].classList.remove("active-box"), (b.isPros = !0);
                             let a = document.querySelectorAll(".element");
                             a.forEach((a) => {
@@ -150,6 +167,7 @@ class Chess {
                 });
         }
     }
+
     knightMoveFunc() {
         let a = document.querySelectorAll(".knight"),
             b = this.chessBox.querySelectorAll(".box"),
@@ -160,6 +178,7 @@ class Chess {
             });
         });
     }
+
     rookMoveClickFunc(a, b, c) {
         !a.classList.contains("blk") &&
             a.classList.contains("rook") &&
@@ -169,8 +188,13 @@ class Chess {
                 if (a.classList.contains("active"))
                     (c.dataset.row != a.parentElement.dataset.row && c.dataset.column != a.parentElement.dataset.column) ||
                         (c.children[0] && c.children[0].dataset.color == a.dataset.color) ||
-                        (c.classList.add("active-box"), c.classList.remove("no-event"));
+                        (c.classList.add("active-box"));
                 else {
+
+                    if(c.classList.contains("active-box")){
+                        c.classList.add('no-event')
+                    }
+
                     c.classList.remove("active-box"), (b.isPros = !0);
                     let a = document.querySelectorAll(".element");
                     a.forEach((a) => {
@@ -178,6 +202,7 @@ class Chess {
                     });
                 }
             }),
+
             c.forEach((b) => {
                 b.children[0] &&
                     b.dataset.row == a.parentElement.dataset.row &&
@@ -196,7 +221,14 @@ class Chess {
                                 : b.dataset.column == c.dataset.column && a.parentElement.dataset.row > b.dataset.row && c.dataset.row < b.dataset.row && c.classList.contains("active-box") && c.classList.remove("active-box");
                         });
             }));
+
+            c.forEach(x=>{
+                if(x.classList.contains("active-box")){
+                    x.classList.remove('no-event')
+                }
+            })
     }
+
     rookMoveFunc() {
         let a = document.querySelectorAll(".rook"),
             b = this.chessBox.querySelectorAll(".box"),
@@ -207,6 +239,7 @@ class Chess {
             });
         });
     }
+
     bishopMoveClickFunc(a, b, c) {
         !a.classList.contains("blk") &&
             a.classList.contains("bishop") &&
@@ -216,8 +249,13 @@ class Chess {
                 if (a.classList.contains("active"))
                     (c.dataset.clockwise != a.parentElement.dataset.clockwise && c.dataset.anticlockwise != a.parentElement.dataset.anticlockwise) ||
                         (c.children[0] && c.children[0].dataset.color == a.dataset.color) ||
-                        (c.classList.add("active-box"), c.classList.remove("no-event"));
+                        (c.classList.add("active-box"));
                 else {
+
+                    if(c.classList.contains("active-box")){
+                        c.classList.add('no-event')
+                    }
+
                     c.classList.remove("active-box"), (b.isPros = !0);
                     let a = document.querySelectorAll(".element");
                     a.forEach((a) => {
@@ -243,7 +281,14 @@ class Chess {
                                 : b.dataset.anticlockwise == c.dataset.anticlockwise && a.parentElement.dataset.row > b.dataset.row && c.dataset.row < b.dataset.row && c.classList.contains("active-box") && c.classList.remove("active-box");
                         });
             }));
+
+            c.forEach(x=>{
+                if(x.classList.contains("active-box")){
+                    x.classList.remove('no-event')
+                }
+            })
     }
+
     bishopMoveFunc() {
         let a = document.querySelectorAll(".bishop"),
             b = this.chessBox.querySelectorAll(".box"),
@@ -254,6 +299,7 @@ class Chess {
             });
         });
     }
+
     queenMoveClickFunc(a, b, c) {
         !a.classList.contains("blk") &&
             a.classList.contains("queen") &&
@@ -266,8 +312,12 @@ class Chess {
                         c.dataset.clockwise != a.parentElement.dataset.clockwise &&
                         c.dataset.anticlockwise != a.parentElement.dataset.anticlockwise) ||
                         (c.children[0] && c.children[0].dataset.color == a.dataset.color) ||
-                        (c.classList.add("active-box"), c.classList.remove("no-event"));
+                        (c.classList.add("active-box"));
                 else {
+
+                    if(c.classList.contains("active-box")){
+                        c.classList.add('no-event')
+                    }
                     c.classList.remove("active-box"), (b.isPros = !0);
                     let a = document.querySelectorAll(".element");
                     a.forEach((a) => {
@@ -312,8 +362,15 @@ class Chess {
                                 ? c.classList.contains("active-box") && c.classList.remove("active-box")
                                 : b.dataset.anticlockwise == c.dataset.anticlockwise && a.parentElement.dataset.row > b.dataset.row && c.dataset.row < b.dataset.row && c.classList.contains("active-box") && c.classList.remove("active-box");
                         });
-            }));
+                    }));
+                    
+            c.forEach(x=>{
+                if(x.classList.contains("active-box")){
+                    x.classList.remove('no-event')
+                }
+            })
     }
+
     queenMoveFunc() {
         let a = document.querySelectorAll(".queen"),
             b = this.chessBox.querySelectorAll(".box"),
@@ -324,6 +381,7 @@ class Chess {
             });
         });
     }
+
     kingMoveFunc() {
         let a = document.querySelectorAll(".king"),
             b = this.chessBox.querySelectorAll(".box"),
@@ -337,29 +395,35 @@ class Chess {
                     c.kingMove.forEach((b) => {
                         a.classList.contains(`${c.side[1]}-element`) && (b = -b), e.push(d + b);
                     }),
-                        a.classList.toggle("active"),
-                        e.forEach((f) => {
-                            if (b[f])
-                                if (a.classList.contains("active")) {
-                                    (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event") && b[f].classList.remove("no-event"));
-                                    let g = 0;
-                                    a.dataset.color == c.side[1] && (g = 5),
-                                        8 == b[d].dataset.column &&
-                                            (b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"), b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box")),
-                                        1 == b[d].dataset.column &&
-                                            (b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"), b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"), b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"));
-                                } else {
-                                    b[f].classList.remove("active-box"), (c.isPros = !0);
-                                    let a = document.querySelectorAll(".element");
-                                    a.forEach((a) => {
-                                        a.classList.remove("blk");
-                                    });
+                    a.classList.toggle("active"),
+                    e.forEach((f) => {
+                        if (b[f])
+                            if (a.classList.contains("active")) {
+                                (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event") && b[f].classList.remove("no-event"));
+                                let g = 0;
+                                a.dataset.color == c.side[1] && (g = 5),
+                                    8 == b[d].dataset.column &&
+                                        (b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),(b[e[5 - g]] && b[e[5 - g]].classList.add("no-event"), b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box")),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
+                                    1 == b[d].dataset.column &&
+                                        (b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),(b[e[0 + g]] && b[e[0 + g]].classList.add("no-event"), b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),b[e[1 + g]] && b[e[1 + g]].classList.add("no-event"), b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box")), b[e[2 + g]] && b[e[2 + g]].classList.add("no-event"))
+                            } else {
+
+                                if(b[f].classList.contains("active-box")){
+                                    b[f].classList.add('no-event')
                                 }
-                        });
+
+                                b[f].classList.remove("active-box"), (c.isPros = !0);
+                                let a = document.querySelectorAll(".element");
+                                a.forEach((a) => {
+                                    a.classList.remove("blk");
+                                });
+                            }
+                    });
                 }
             });
         });
     }
+
     appendFunc() {
         let a = this.chessBox.querySelectorAll(".box");
         a.forEach((b) => {
@@ -405,13 +469,14 @@ class Chess {
                                       (document.querySelector(`.${c.side[0]}-active`).style.display = "block")));
                     }
                     c.currentSelectedElement.classList.remove("active"),
-                        a.forEach((a) => {
-                            a.classList.remove("active-box");
-                        });
+                    a.forEach((a) => {
+                        a.classList.remove("active-box");
+                    });
                 }
             });
         });
     }
+
     grabClickFunc(a, b, c, d) {
         (a.gettingbox.children[0].className = `element ${b.dataset.cat} ${c}-element`),
             (a.gettingbox.children[0].dataset.color = `${c}`),
@@ -444,6 +509,7 @@ class Chess {
                     a.bishopMoveClickFunc(e, a, f);
                 });
     }
+
     grabeFunc() {
         let a = document.querySelector(`.${this.side[0]}-reserve-element`).querySelectorAll(".reserve-elmmt"),
             b = document.querySelector(`.${this.side[1]}-reserve-element`).querySelectorAll(".reserve-elmmt"),
@@ -469,4 +535,5 @@ class Chess {
               });
     }
 }
+
 let chess = new Chess();
