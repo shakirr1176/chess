@@ -13,7 +13,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    /* overflow: hidden; */
 }
 
 .board{
@@ -36,7 +35,7 @@ body{
     height: 12px;
     bottom: 100%;
     left: 0;
-    background:  rgb(243, 146, 0);
+    background:  rgb(243, 207, 0);
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     animation: blink 600ms linear infinite alternate;
@@ -48,20 +47,20 @@ body{
     height: 12px;
     top: 100%;
     left: 0;
-    background:  rgb(243, 146, 0);
+    background:  rgb(243, 207, 0);
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     animation: blink 600ms linear infinite alternate;
 }
 
-@keyframes blink{
+/* @keyframes blink{
     0% {
         opacity: 1;
     }
     100%{
         opacity: 0.5;
     }
-}
+} */
 
 
 
@@ -143,10 +142,17 @@ body{
 }
 .active-box::after{
     content: '';
+    inset: 0;
+    position: absolute;
+}
+
+.active-box::before{
+    content: '';
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: greenyellow;
+    background-color: rgb(125, 126, 124);
+    opacity: .7;
     position: absolute;
 }
 
@@ -264,4 +270,8 @@ body{
 
 .hidden{
     display: none;
+}
+
+.element{
+    cursor: grab;
 }
