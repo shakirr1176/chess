@@ -127,8 +127,9 @@ class Chess {
             let d = [...b].indexOf(a.parentElement),
                 e = [];
             c.knightMove.forEach((x) => {
-                a.classList.contains(`${c.side[1]}-element`) && (b = -b), e.push(d + x);
+                a.classList.contains(`${c.side[1]}-element`) && (x = -x), e.push(d + x);
             })
+            
             if(c.prevousItem != undefined){
                 c.prevousItem.classList.remove("active")
             }
@@ -143,31 +144,34 @@ class Chess {
                     }
                 }
             })
-                e.forEach((f) => {
-                    if (b[f])
-                        if (c.prevousItem != a && a.classList.contains("active")) {
-                            (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event") && b[f].classList.remove("no-event"));
-                            let g = 0;
-                            a.dataset.color == c.side[1] && (g = 4),
-                                8 == b[d].dataset.column &&
-                                    (b[e[4 - g]] && b[e[4 - g]].classList.remove("active-box"),b[e[4 - g]].classList.add("no-event"),
-                                    b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),b[e[5 - g]].classList.add("no-event"),
-                                    b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]].classList.add("no-event"),
-                                    b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]].classList.add("no-event")),
-                                7 == b[d].dataset.column && (b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
-                                1 == b[d].dataset.column &&
-                                    (b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),b[e[0 + g]].classList.add("no-event"),
-                                    b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),b[e[1 + g]].classList.add("no-event"),
-                                    b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]].classList.add("no-event"),
-                                    b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]].classList.add("no-event")),
-                                2 == b[d].dataset.column && (b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]].classList.add("no-event"), b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]].classList.add("no-event"))
-                                
-                        }
-                });
 
-                c.prevousItem = a;
+            e.forEach((f) => {
+                if (b[f])
+                    if (c.prevousItem != a && a.classList.contains("active")) {
+                        (b[f].children[0] &&
+                        b[f].children[0].dataset.color == a.dataset.color) ||
+                        (b[f].classList.add("active-box"), b[f].classList.contains("no-event") && b[f].classList.remove("no-event"));
+                        let g = 0;
+                        a.dataset.color == c.side[1] && (g = 4),
+                            8 == b[d].dataset.column &&
+                                (b[e[4 - g]] && b[e[4 - g]].classList.remove("active-box"),b[e[4 - g]].classList.add("no-event"),
+                                b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),b[e[5 - g]].classList.add("no-event"),
+                                b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]].classList.add("no-event"),
+                                b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]].classList.add("no-event")),
+                            7 == b[d].dataset.column && (b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
+                            1 == b[d].dataset.column &&
+                                (b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),b[e[0 + g]].classList.add("no-event"),
+                                b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),b[e[1 + g]].classList.add("no-event"),
+                                b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]].classList.add("no-event"),
+                                b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]].classList.add("no-event")),
+                            2 == b[d].dataset.column && (b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]].classList.add("no-event"), b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]].classList.add("no-event"))
+                            
+                    }
+            });
 
-                c.prevActiveBox = e
+            c.prevousItem = a;
+
+            c.prevActiveBox = e
         }
     }
 
