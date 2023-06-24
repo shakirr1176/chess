@@ -7,6 +7,8 @@ class Chess {
             (this.side = ["white", "black"]),
             (this.currentSelectedElement = ""),
             (this.gettingbox = ""),
+            this.prevousItem = undefined,
+            this.prevActiveBox = []
             this.declare(),
             this.draw();
     }
@@ -14,7 +16,7 @@ class Chess {
         (this.chessBox = document.querySelector(".chess-box")), (this.choose = document.querySelectorAll(".choose"));
     }
     draw() {
-        this.stage(), this.allBlock(), this.pawnMoveFunc(), this.knightMoveFunc(), this.rookMoveFunc(), this.bishopMoveFunc(), this.kingMoveFunc(), this.queenMoveFunc(), this.appendFunc(), this.grabeFunc();
+        this.stage(), this.pawnMoveFunc(), this.knightMoveFunc(), this.rookMoveFunc(), this.bishopMoveFunc(), this.kingMoveFunc(), this.queenMoveFunc(), this.appendFunc(), this.grabeFunc();
     }
     stage() {
         for (let a, b = 0; 64 > b; b++) (a = document.createElement("div")), (a.className = "box"), this.chessBox.append(a);
@@ -61,147 +63,201 @@ class Chess {
             (document.querySelector(`.${this.side[1]}-active`).style.display = "none"),
             (document.querySelector(`.${this.side[0]}-active`).style.display = "block");
     }
-    allBlock() {
-        let a = document.querySelectorAll(".element"),
-            b = this;
-        a.forEach((b) => {
-            b.addEventListener("click", () => {
-                this.isPros &&
-                    (a.forEach((a) => {
-                        a.classList.add("blk");
-                    }),
-                    b.classList.remove("blk"),
-                    (this.isPros = !1));
-            });
-        });
-    }
 
     pawnMoveFunc() {
 
-        let a = document.querySelectorAll(".pawn"),
+        let pawn = document.querySelectorAll(".pawn"),
             b = this.chessBox.querySelectorAll(".box"),
-            c = this;
-
-        a.forEach((a) => {
+            c = this
+        
+        pawn.forEach((a) => {
             a.addEventListener("click", () => {
-                if (!a.classList.contains("blk") && a.classList.contains("pawn")) {
+                if (a.classList.contains("pawn")) {
                     c.currentSelectedElement = a;
                     let d = [...b].indexOf(a.parentElement),
                         e = [];
                     c.pawnMove.forEach((b) => {
                         a.classList.contains(`${c.side[1]}-element`) && (b = -b), e.push(d + b);
-                    }),
-                        a.classList.toggle("active"),
-                        e.forEach((f) => {
-                            if (b[f])
-                                if (a.classList.contains("active"))
-                                    (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event"),
-                                    b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row && b[e[2]].classList.remove("active-box"),
-                                    b[e[3]] && b[e[0]].dataset.row != b[e[3]].dataset.row && b[e[3]].classList.remove("active-box"),
-                                    b[e[0]] && b[e[0]].children[0] && b[e[0]].classList.remove("active-box"),
-                                    b[e[1]] && b[e[1]].children[0] && b[e[1]].classList.remove("active-box"),
-                                    ((15 < d && `${c.side[1]}` == a.dataset.color) || (48 > d && `${c.side[0]}` == a.dataset.color)) && b[e[1]] && b[e[1]].classList.remove("active-box"),
-                                    b[e[0]].children[0] && b[e[0]].children[0].dataset.color != a.dataset.color && b[e[1]] && b[e[1]].classList.remove("active-box"),
-                                    b[e[2]] && !b[e[2]].children[0] && b[e[2]].classList.remove("active-box"),
-                                    b[e[3]] && !b[e[3]].children[0] && b[e[3]].classList.remove("active-box"),
-                                    b[f].classList.contains("active-box") && b[f].classList.remove("no-event"))
-                                    else {
+                    })
+                    
+                    if(c.prevousItem != undefined){
+                        c.prevousItem.classList.remove("active")
+                    }
 
-                                    if(b[f].classList.contains("active-box")){
-                                        b[f].classList.add('no-event')
-                                    }
+                    a.classList.add("active")
 
-                                    b[f].classList.remove("active-box"), (c.isPros = !0);
+                    c.prevActiveBox.forEach(el=>{
+                        if(b[el]){
+                            if(c.prevousItem != a && b[el].classList.contains("active-box")){
+                                b[el].classList.add('no-event')
+                                b[el].classList.remove("active-box"), (c.isPros = !0);
+                            }
+                        }
+                    })
 
-                                    let a = document.querySelectorAll(".element");
-                                    a.forEach((a) => {
-                                        a.classList.remove("blk");
-                                    });
+                    e.forEach((f) => {
+                        if (b[f]){
+                            if(c.prevousItem != a && a.classList.contains("active")){
+
+                                b[f].classList.add("active-box")
+                                b[f].classList.remove("no-event")
+
+                                if(b[f].children[0] && b[f].classList.contains("active-box") && b[f].children[0].dataset.color == a.dataset.color){
+                                    b[f].classList.remove("active-box")
+                                    b[f].classList.add("no-event")
                                 }
-                        });
+
+                                if(b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row){
+                                    b[e[2]].classList.remove("active-box")
+                                    if(b[e[2]].classList.contains("no-event")){
+                                        b[e[2]].classList.add("no-event")
+                                    }
+                                }
+
+                                if(b[e[3]] && b[e[0]].dataset.row != b[e[3]].dataset.row){
+                                    b[e[3]].classList.remove("active-box")
+                                    b[e[3]].classList.add("no-event")
+                                }
+
+                                if(b[e[0]] && b[e[0]].children[0]){
+                                    b[e[0]].classList.remove("active-box")
+                                    b[e[1]].classList.remove("active-box")
+                                    b[e[0]].classList.add("no-event")
+                                    b[e[1]].classList.add("no-event")
+                                }
+
+                                if(b[e[1]] && b[e[1]].children[0]){
+                                    b[e[1]].classList.remove("active-box")
+                                    b[e[1]].classList.add("no-event")
+                                }
+
+                                if(b[e[2]] && !b[e[2]].children[0]){
+                                    b[e[2]].classList.remove("active-box")
+                                    b[e[2]].classList.add("no-event")
+                                }
+
+                                if(b[e[3]] && !b[e[3]].children[0]){
+                                    b[e[3]].classList.remove("active-box")
+                                    b[e[3]].classList.add("no-event")
+                                }
+
+                                if(15 < d && `${c.side[1]}` == a.dataset.color || 48 > d && `${c.side[0]}` == a.dataset.color){
+                                    b[e[1]].classList.remove("active-box")
+                                    b[e[1]].classList.add("no-event")
+                                }
+                            }
+                        }
+                    });
+
+                    c.prevousItem = a;
+
+                    c.prevActiveBox = e
+
                 }
             });
         });
     }
 
     knightMoveClickFunc(a, b, c) {
-        if (!a.classList.contains("blk") && a.classList.contains("knight")) {
-            b.currentSelectedElement = a;
-            let d = [...c].indexOf(a.parentElement),
+        if (a.classList.contains("knight")) {
+            c.currentSelectedElement = a;
+            let d = [...b].indexOf(a.parentElement),
                 e = [];
-            b.knightMove.forEach((c) => {
-                a.classList.contains(`${b.side[1]}-element`) && (c = -c), e.push(d + c);
-            }),
-                a.classList.toggle("active"),
-                e.forEach((f) => {
-                    if (c[f])
-                        if (a.classList.contains("active")) {
-                            (c[f].children[0] && c[f].children[0].dataset.color == a.dataset.color) || (c[f].classList.add("active-box"), c[f].classList.contains("no-event") && c[f].classList.remove("no-event"));
-                            let g = 0;
-                            a.dataset.color == b.side[1] && (g = 4),
-                                8 == c[d].dataset.column &&
-                                    (c[e[4 - g]] && c[e[4 - g]].classList.remove("active-box"),c[e[4 - g]].classList.add("no-event"),
-                                    c[e[5 - g]] && c[e[5 - g]].classList.remove("active-box"),c[e[5 - g]].classList.add("no-event"),
-                                    c[e[6 - g]] && c[e[6 - g]].classList.remove("active-box"),c[e[6 - g]].classList.add("no-event"),
-                                    c[e[7 - g]] && c[e[7 - g]].classList.remove("active-box"),c[e[7 - g]].classList.add("no-event")),
-                                7 == c[d].dataset.column && (c[e[6 - g]] && c[e[6 - g]].classList.remove("active-box"),c[e[6 - g]].classList.add("no-event"), c[e[7 - g]] && c[e[7 - g]].classList.remove("active-box"),c[e[7 - g]] && c[e[7 - g]].classList.add("no-event")),
-                                1 == c[d].dataset.column &&
-                                    (c[e[0 + g]] && c[e[0 + g]].classList.remove("active-box"),c[e[0 + g]].classList.add("no-event"),
-                                    c[e[1 + g]] && c[e[1 + g]].classList.remove("active-box"),c[e[1 + g]].classList.add("no-event"),
-                                    c[e[2 + g]] && c[e[2 + g]].classList.remove("active-box"),c[e[2 + g]].classList.add("no-event"),
-                                    c[e[3 + g]] && c[e[3 + g]].classList.remove("active-box"),c[e[3 + g]].classList.add("no-event")),
-                                2 == c[d].dataset.column && (c[e[2 + g]] && c[e[2 + g]].classList.remove("active-box"),c[e[2 + g]].classList.add("no-event"), c[e[3 + g]] && c[e[3 + g]].classList.remove("active-box"),c[e[3 + g]].classList.add("no-event"))
-                                
-                        } else {
+            c.knightMove.forEach((x) => {
+                a.classList.contains(`${c.side[1]}-element`) && (x = -x), e.push(d + x);
+            })
+            
+            if(c.prevousItem != undefined){
+                c.prevousItem.classList.remove("active")
+            }
 
-                            if(c[f].classList.contains("active-box")){
-                                c[f].classList.add('no-event')
-                            }
+            a.classList.add("active")
 
-                            c[f].classList.remove("active-box"), (b.isPros = !0);
-                            let a = document.querySelectorAll(".element");
-                            a.forEach((a) => {
-                                a.classList.remove("blk");
-                            });
-                        }
-                });
+            c.prevActiveBox.forEach(el=>{
+                if(b[el]){
+                    if(c.prevousItem != a && b[el].classList.contains("active-box")){
+                        b[el].classList.add('no-event')
+                        b[el].classList.remove("active-box"), (c.isPros = !0);
+                    }
+                }
+            })
+
+            e.forEach((f) => {
+                if (b[f])
+                    if (c.prevousItem != a && a.classList.contains("active")) {
+                        (b[f].children[0] &&
+                        b[f].children[0].dataset.color == a.dataset.color) ||
+                        (b[f].classList.add("active-box"), b[f].classList.contains("no-event") && b[f].classList.remove("no-event"));
+                        let g = 0;
+                        a.dataset.color == c.side[1] && (g = 4),
+                            8 == b[d].dataset.column &&
+                                (b[e[4 - g]] && b[e[4 - g]].classList.remove("active-box"),
+                                b[e[4 - g]] && b[e[4 - g]].classList.add("no-event"),
+                                b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),
+                                b[e[5 - g]] && b[e[5 - g]].classList.add("no-event"),
+                                b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),
+                                b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"),
+                                b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),
+                                b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")
+                                ),
+                            7 == b[d].dataset.column && (b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"), b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
+                            1 == b[d].dataset.column &&
+                                (
+                                b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),
+                                b[e[0 + g]].classList.add("no-event"),
+                                b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),
+                                b[e[1 + g]].classList.add("no-event"),
+                                b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),
+                                b[e[2 + g]].classList.add("no-event"),
+                                b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),
+                                b[e[3 + g]].classList.add("no-event")
+                                ),
+                            2 == b[d].dataset.column && (b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]] && b[e[2 + g]].classList.add("no-event"), b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]] && b[e[3 + g]].classList.add("no-event"))
+                    }
+            });
+
+            c.prevousItem = a;
+
+            c.prevActiveBox = e
         }
     }
 
     knightMoveFunc() {
         let a = document.querySelectorAll(".knight"),
             b = this.chessBox.querySelectorAll(".box"),
-            c = this;
+            c = this
         a.forEach((a) => {
             a.addEventListener("click", () => {
-                c.knightMoveClickFunc(a, c, b);
+                c.knightMoveClickFunc(a, b,c);
             });
         });
     }
 
     rookMoveClickFunc(a, b, c) {
-        !a.classList.contains("blk") &&
-            a.classList.contains("rook") &&
-            ((b.currentSelectedElement = a),
-            a.classList.toggle("active"),
-            c.forEach((c) => {
-                if (a.classList.contains("active"))
-                    (c.dataset.row != a.parentElement.dataset.row && c.dataset.column != a.parentElement.dataset.column) ||
-                        (c.children[0] && c.children[0].dataset.color == a.dataset.color) ||
-                        (c.classList.add("active-box"));
-                else {
+        if(a.classList.contains("rook")){
+            b.currentSelectedElement = a
+            
+            if(b.prevousItem != undefined){
+                b.prevousItem.classList.remove("active")
+            }
 
-                    if(c.classList.contains("active-box")){
-                        c.classList.add('no-event')
+            a.classList.add("active")
+
+            b.prevActiveBox.forEach(el=>{
+                if(c[el]){
+                    if(b.prevousItem != a && c[el].classList.contains("active-box")){
+                        c[el].classList.add('no-event')
+                        c[el].classList.remove("active-box"), (b.isPros = !0);
                     }
-
-                    c.classList.remove("active-box"), (b.isPros = !0);
-                    let a = document.querySelectorAll(".element");
-                    a.forEach((a) => {
-                        a.classList.remove("blk");
-                    });
                 }
-            }),
+            })
+
+            c.forEach((c) => {
+                if (b.prevousItem != a && a.classList.contains("active"))
+                    (c.dataset.row != a.parentElement.dataset.row && c.dataset.column != a.parentElement.dataset.column) ||
+                    (c.children[0] && c.children[0].dataset.color == a.dataset.color) ||
+                    (c.classList.add("active-box"));
+            })
 
             c.forEach((b) => {
                 b.children[0] &&
@@ -220,13 +276,20 @@ class Chess {
                                 ? c.classList.contains("active-box") && c.classList.remove("active-box")
                                 : b.dataset.column == c.dataset.column && a.parentElement.dataset.row > b.dataset.row && c.dataset.row < b.dataset.row && c.classList.contains("active-box") && c.classList.remove("active-box");
                         });
-            }));
+            })
 
-            c.forEach(x=>{
-                if(x.classList.contains("active-box")){
+            b.prevActiveBox = [];
+
+            c.forEach((x,i)=>{
+                if(b.prevousItem != a && x.classList.contains("active-box")){
                     x.classList.remove('no-event')
+                    b.prevActiveBox.push(i)
                 }
             })
+            
+            b.prevousItem = a
+
+        }
     }
 
     rookMoveFunc() {
@@ -241,10 +304,25 @@ class Chess {
     }
 
     bishopMoveClickFunc(a, b, c) {
-        !a.classList.contains("blk") &&
-            a.classList.contains("bishop") &&
-            ((b.currentSelectedElement = a),
-            a.classList.toggle("active"),
+        if(a.classList.contains("bishop")){
+            b.currentSelectedElement = a
+
+            if(b.prevousItem != undefined){
+                b.prevousItem.classList.remove("active")
+            }
+
+            a.classList.add("active")
+
+            b.prevActiveBox.forEach(el=>{
+                if(c[el]){
+                    if(b.prevousItem != a && c[el].classList.contains("active-box")){
+                        c[el].classList.add('no-event')
+                        c[el].classList.remove("active-box"), (b.isPros = !0);
+                    }
+                }
+            })
+
+
             c.forEach((c) => {
                 if (a.classList.contains("active"))
                     (c.dataset.clockwise != a.parentElement.dataset.clockwise && c.dataset.anticlockwise != a.parentElement.dataset.anticlockwise) ||
@@ -257,10 +335,6 @@ class Chess {
                     }
 
                     c.classList.remove("active-box"), (b.isPros = !0);
-                    let a = document.querySelectorAll(".element");
-                    a.forEach((a) => {
-                        a.classList.remove("blk");
-                    });
                 }
             }),
             c.forEach((b) => {
@@ -280,13 +354,20 @@ class Chess {
                                 ? c.classList.contains("active-box") && c.classList.remove("active-box")
                                 : b.dataset.anticlockwise == c.dataset.anticlockwise && a.parentElement.dataset.row > b.dataset.row && c.dataset.row < b.dataset.row && c.classList.contains("active-box") && c.classList.remove("active-box");
                         });
-            }));
-
-            c.forEach(x=>{
-                if(x.classList.contains("active-box")){
-                    x.classList.remove('no-event')
-                }
             })
+        }
+        
+        b.prevActiveBox = [];
+
+        c.forEach((x,i)=>{
+            if(b.prevousItem != a && x.classList.contains("active-box")){
+                x.classList.remove('no-event')
+                b.prevActiveBox.push(i)
+            }
+        })
+        
+        b.prevousItem = a
+
     }
 
     bishopMoveFunc() {
@@ -301,30 +382,31 @@ class Chess {
     }
 
     queenMoveClickFunc(a, b, c) {
-        !a.classList.contains("blk") &&
-            a.classList.contains("queen") &&
-            ((b.currentSelectedElement = a),
-            a.classList.toggle("active"),
+        if(a.classList.contains('queen')){
+            b.currentSelectedElement = a
+            if(b.prevousItem != undefined){
+                b.prevousItem.classList.remove("active")
+            }
+
+            a.classList.add("active")
+
+            b.prevActiveBox.forEach(el=>{
+                if(c[el]){
+                    if(b.prevousItem != a && c[el].classList.contains("active-box")){
+                        c[el].classList.add('no-event')
+                        c[el].classList.remove("active-box"), (b.isPros = !0);
+                    }
+                }
+            })
             c.forEach((c) => {
-                if (a.classList.contains("active"))
+                if (b.prevousItem != a && a.classList.contains("active"))
                     (c.dataset.row != a.parentElement.dataset.row &&
                         c.dataset.column != a.parentElement.dataset.column &&
                         c.dataset.clockwise != a.parentElement.dataset.clockwise &&
                         c.dataset.anticlockwise != a.parentElement.dataset.anticlockwise) ||
                         (c.children[0] && c.children[0].dataset.color == a.dataset.color) ||
                         (c.classList.add("active-box"));
-                else {
-
-                    if(c.classList.contains("active-box")){
-                        c.classList.add('no-event')
-                    }
-                    c.classList.remove("active-box"), (b.isPros = !0);
-                    let a = document.querySelectorAll(".element");
-                    a.forEach((a) => {
-                        a.classList.remove("blk");
-                    });
-                }
-            }),
+            })
             c.forEach((b) => {
                 b.children[0] &&
                     !b.children[0].classList.contains("active") &&
@@ -362,13 +444,20 @@ class Chess {
                                 ? c.classList.contains("active-box") && c.classList.remove("active-box")
                                 : b.dataset.anticlockwise == c.dataset.anticlockwise && a.parentElement.dataset.row > b.dataset.row && c.dataset.row < b.dataset.row && c.classList.contains("active-box") && c.classList.remove("active-box");
                         });
-                    }));
+                    })
+
+                    b.prevActiveBox = [];
+
+                    c.forEach((x,i)=>{
+                        if(b.prevousItem != a && x.classList.contains("active-box")){
+                            x.classList.remove('no-event')
+                            b.prevActiveBox.push(i)
+                        }
+                    })
                     
-            c.forEach(x=>{
-                if(x.classList.contains("active-box")){
-                    x.classList.remove('no-event')
-                }
-            })
+                    b.prevousItem = a
+        }
+                    
     }
 
     queenMoveFunc() {
@@ -388,37 +477,61 @@ class Chess {
             c = this;
         a.forEach((a) => {
             a.addEventListener("click", () => {
-                if (!a.classList.contains("blk") && a.classList.contains("king")) {
+                if ( a.classList.contains("king")) {
                     c.currentSelectedElement = a;
                     let d = [...b].indexOf(a.parentElement),
                         e = [];
                     c.kingMove.forEach((b) => {
                         a.classList.contains(`${c.side[1]}-element`) && (b = -b), e.push(d + b);
-                    }),
-                    a.classList.toggle("active"),
+                    })
+
+                    if(c.prevousItem != undefined){
+                        c.prevousItem.classList.remove("active")
+                    }
+
+                    a.classList.add("active")
+
+                    c.prevActiveBox.forEach(el=>{
+                        if(b[el]){
+                            if(c.prevousItem != a && b[el].classList.contains("active-box")){
+                                b[el].classList.add('no-event')
+                                b[el].classList.remove("active-box"), (c.isPros = !0);
+                            }
+                        }
+                    })
+
                     e.forEach((f) => {
                         if (b[f])
-                            if (a.classList.contains("active")) {
+                            if (c.prevousItem != a && a.classList.contains("active")) {
                                 (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event") && b[f].classList.remove("no-event"));
                                 let g = 0;
                                 a.dataset.color == c.side[1] && (g = 5),
                                     8 == b[d].dataset.column &&
-                                        (b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),(b[e[5 - g]] && b[e[5 - g]].classList.add("no-event"), b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box")),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
+                                        (
+                                        b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),
+                                        b[e[5 - g]] && b[e[5 - g]].classList.add("no-event"),
+                                        b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),
+                                        b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"),
+                                        b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),
+                                        b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")
+                                        ),
                                     1 == b[d].dataset.column &&
-                                        (b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),(b[e[0 + g]] && b[e[0 + g]].classList.add("no-event"), b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),b[e[1 + g]] && b[e[1 + g]].classList.add("no-event"), b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box")), b[e[2 + g]] && b[e[2 + g]].classList.add("no-event"))
-                            } else {
-
-                                if(b[f].classList.contains("active-box")){
-                                    b[f].classList.add('no-event')
-                                }
-
-                                b[f].classList.remove("active-box"), (c.isPros = !0);
-                                let a = document.querySelectorAll(".element");
-                                a.forEach((a) => {
-                                    a.classList.remove("blk");
-                                });
+                                        (
+                                        b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),
+                                        b[e[0 + g]] && b[e[0 + g]].classList.add("no-event"),
+                                        (
+                                            b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),
+                                            b[e[1 + g]] && b[e[1 + g]].classList.add("no-event"),
+                                            b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),
+                                            b[e[2 + g]] && b[e[2 + g]].classList.add("no-event")
+                                        )
+                                        )
                             }
                     });
+
+                    c.prevousItem = a;
+
+                    c.prevActiveBox = e
                 }
             });
         });
@@ -433,10 +546,7 @@ class Chess {
                     (c.gettingbox = b), (c.isPros = !0);
                     let d = document.querySelectorAll(".element");
                     if (
-                        (d.forEach((a) => {
-                            a.classList.remove("blk");
-                        }),
-                        c.currentSelectedElement.classList.contains("active"))
+                        (c.currentSelectedElement.classList.contains("active"))
                     ) {
                         if (b.children[0] && b.children[0].dataset.color != c.currentSelectedElement.dataset.color) {
                             let a = document.createElement("div");
@@ -492,7 +602,7 @@ class Chess {
             (document.querySelector(`.${c}-active`).style.display = "none");
         let e = a.gettingbox.children[0],
             f = this.chessBox.querySelectorAll(".box");
-        "queen" == b.dataset.cat &&
+            "queen" == b.dataset.cat &&
             e.addEventListener("click", () => {
                 a.queenMoveClickFunc(e, a, f);
             }),
