@@ -96,21 +96,58 @@ class Chess {
                     })
 
                     e.forEach((f) => {
-                        if (b[f])
-                            if (c.prevousItem != a && a.classList.contains("active"))
-                                (b[f].children[0] && b[f].children[0].dataset.color == a.dataset.color) || (b[f].classList.add("active-box"), b[f].classList.contains("no-event"),
-                                b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row && b[e[2]].classList.remove("active-box"),
-                                b[e[3]] && b[e[0]].dataset.row != b[e[3]].dataset.row && b[e[3]].classList.remove("active-box"),
-                                b[e[0]] && b[e[0]].children[0] && b[e[0]].classList.remove("active-box"),
-                                b[e[1]] && b[e[1]].children[0] && b[e[1]].classList.remove("active-box"),
-                                ((15 < d && `${c.side[1]}` == a.dataset.color) || (48 > d && `${c.side[0]}` == a.dataset.color)) && b[e[1]] && b[e[1]].classList.remove("active-box"),
-                                b[e[0]].children[0] && b[e[0]].children[0].dataset.color != a.dataset.color && b[e[1]] && b[e[1]].classList.remove("active-box"),
-                                b[e[2]] && !b[e[2]].children[0] && b[e[2]].classList.remove("active-box"),
-                                b[e[3]] && !b[e[3]].children[0] && b[e[3]].classList.remove("active-box"),
-                                b[f].classList.contains("active-box") && b[f].classList.remove("no-event"))
-                    });
+                        if (b[f]){
+                            if(c.prevousItem != a && a.classList.contains("active")){
 
-                   
+                                b[f].classList.add("active-box")
+                                b[f].classList.remove("no-event")
+
+                                if(b[f].children[0] && b[f].classList.contains("active-box") && b[f].children[0].dataset.color == a.dataset.color){
+                                    b[f].classList.remove("active-box")
+                                    b[f].classList.add("no-event")
+                                }
+
+                                if(b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row){
+                                    b[e[2]].classList.remove("active-box")
+                                    if(b[e[2]].classList.contains("no-event")){
+                                        b[e[2]].classList.add("no-event")
+                                    }
+                                }
+
+                                if(b[e[3]] && b[e[0]].dataset.row != b[e[3]].dataset.row){
+                                    b[e[3]].classList.remove("active-box")
+                                    b[e[3]].classList.add("no-event")
+                                }
+
+                                if(b[e[0]] && b[e[0]].children[0]){
+                                    b[e[0]].classList.remove("active-box")
+                                    b[e[1]].classList.remove("active-box")
+                                    b[e[0]].classList.add("no-event")
+                                    b[e[1]].classList.add("no-event")
+                                }
+
+                                if(b[e[1]] && b[e[1]].children[0]){
+                                    b[e[1]].classList.remove("active-box")
+                                    b[e[1]].classList.add("no-event")
+                                }
+
+                                if(b[e[2]] && !b[e[2]].children[0]){
+                                    b[e[2]].classList.remove("active-box")
+                                    b[e[2]].classList.add("no-event")
+                                }
+
+                                if(b[e[3]] && !b[e[3]].children[0]){
+                                    b[e[3]].classList.remove("active-box")
+                                    b[e[3]].classList.add("no-event")
+                                }
+
+                                if(15 < d && `${c.side[1]}` == a.dataset.color || 48 > d && `${c.side[0]}` == a.dataset.color){
+                                    b[e[1]].classList.remove("active-box")
+                                    b[e[1]].classList.add("no-event")
+                                }
+                            }
+                        }
+                    });
 
                     c.prevousItem = a;
 
@@ -154,18 +191,28 @@ class Chess {
                         let g = 0;
                         a.dataset.color == c.side[1] && (g = 4),
                             8 == b[d].dataset.column &&
-                                (b[e[4 - g]] && b[e[4 - g]].classList.remove("active-box"),b[e[4 - g]].classList.add("no-event"),
-                                b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),b[e[5 - g]].classList.add("no-event"),
-                                b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]].classList.add("no-event"),
-                                b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]].classList.add("no-event")),
-                            7 == b[d].dataset.column && (b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
+                                (b[e[4 - g]] && b[e[4 - g]].classList.remove("active-box"),
+                                b[e[4 - g]] && b[e[4 - g]].classList.add("no-event"),
+                                b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),
+                                b[e[5 - g]] && b[e[5 - g]].classList.add("no-event"),
+                                b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),
+                                b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"),
+                                b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),
+                                b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")
+                                ),
+                            7 == b[d].dataset.column && (b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"), b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
                             1 == b[d].dataset.column &&
-                                (b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),b[e[0 + g]].classList.add("no-event"),
-                                b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),b[e[1 + g]].classList.add("no-event"),
-                                b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]].classList.add("no-event"),
-                                b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]].classList.add("no-event")),
-                            2 == b[d].dataset.column && (b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]].classList.add("no-event"), b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]].classList.add("no-event"))
-                            
+                                (
+                                b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),
+                                b[e[0 + g]].classList.add("no-event"),
+                                b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),
+                                b[e[1 + g]].classList.add("no-event"),
+                                b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),
+                                b[e[2 + g]].classList.add("no-event"),
+                                b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),
+                                b[e[3 + g]].classList.add("no-event")
+                                ),
+                            2 == b[d].dataset.column && (b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),b[e[2 + g]] && b[e[2 + g]].classList.add("no-event"), b[e[3 + g]] && b[e[3 + g]].classList.remove("active-box"),b[e[3 + g]] && b[e[3 + g]].classList.add("no-event"))
                     }
             });
 
@@ -460,9 +507,25 @@ class Chess {
                                 let g = 0;
                                 a.dataset.color == c.side[1] && (g = 5),
                                     8 == b[d].dataset.column &&
-                                        (b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),(b[e[5 - g]] && b[e[5 - g]].classList.add("no-event"), b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"), b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box")),b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")),
+                                        (
+                                        b[e[5 - g]] && b[e[5 - g]].classList.remove("active-box"),
+                                        b[e[5 - g]] && b[e[5 - g]].classList.add("no-event"),
+                                        b[e[6 - g]] && b[e[6 - g]].classList.remove("active-box"),
+                                        b[e[6 - g]] && b[e[6 - g]].classList.add("no-event"),
+                                        b[e[7 - g]] && b[e[7 - g]].classList.remove("active-box"),
+                                        b[e[7 - g]] && b[e[7 - g]].classList.add("no-event")
+                                        ),
                                     1 == b[d].dataset.column &&
-                                        (b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),(b[e[0 + g]] && b[e[0 + g]].classList.add("no-event"), b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),b[e[1 + g]] && b[e[1 + g]].classList.add("no-event"), b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box")), b[e[2 + g]] && b[e[2 + g]].classList.add("no-event"))
+                                        (
+                                        b[e[0 + g]] && b[e[0 + g]].classList.remove("active-box"),
+                                        b[e[0 + g]] && b[e[0 + g]].classList.add("no-event"),
+                                        (
+                                            b[e[1 + g]] && b[e[1 + g]].classList.remove("active-box"),
+                                            b[e[1 + g]] && b[e[1 + g]].classList.add("no-event"),
+                                            b[e[2 + g]] && b[e[2 + g]].classList.remove("active-box"),
+                                            b[e[2 + g]] && b[e[2 + g]].classList.add("no-event")
+                                        )
+                                        )
                             }
                     });
 
