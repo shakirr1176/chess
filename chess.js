@@ -545,9 +545,7 @@ class Chess {
                 if (b.classList.contains("active-box")) {
                     (c.gettingbox = b), (c.isPros = !0);
                     let d = document.querySelectorAll(".element");
-                    if (
-                        (c.currentSelectedElement.classList.contains("active"))
-                    ) {
+                    if ((c.currentSelectedElement.classList.contains("active"))) {
                         if (b.children[0] && b.children[0].dataset.color != c.currentSelectedElement.dataset.color) {
                             let a = document.createElement("div");
                             a.append(b.children[0].children[0]),
@@ -555,7 +553,11 @@ class Chess {
                                 document.querySelector(`.${b.children[0].dataset.color}-place`).append(a),
                                 b.children[0].remove();
                         }
-                        b.append(c.currentSelectedElement),
+
+                        c.moveAnimation(b,c.currentSelectedElement)
+
+                        b.append(c.currentSelectedElement)
+
                             1 == b.dataset.row && c.currentSelectedElement.classList.contains("pawn", `${c.side[0]}-element`) && document.querySelector(`.${c.side[0]}-reserve-element`).classList.remove("hidden"),
                             8 == b.dataset.row && c.currentSelectedElement.classList.contains("pawn", `${c.side[1]}-element`) && document.querySelector(`.${c.side[1]}-reserve-element`).classList.remove("hidden"),
                             document.querySelector(`.${c.side[1]}-reserve-element`).classList.contains("hidden") &&
@@ -585,6 +587,36 @@ class Chess {
                 }
             });
         });
+    }
+
+    moveAnimation(target,elmnt){
+
+        let xAxis = (+elmnt.parentElement.dataset['column']-1)*60
+        let yAxis = (+elmnt.parentElement.dataset['row'] - 1)*60
+
+        let targetxAxis = (+target.dataset['column'] - 1)*60
+        let targetyAxis = (+target.dataset['row'] - 1)*60
+
+        let distanceTime = Math.sqrt(Math.pow((xAxis-targetxAxis),2) + Math.pow((yAxis-targetyAxis),2))
+
+        elmnt.style.left = xAxis + 'px'
+        elmnt.style.top = yAxis + 'px'
+        elmnt.style.transition = null
+        elmnt.style.position = null
+
+        requestAnimationFrame(()=>{
+            elmnt.style.position = 'absolute'
+            elmnt.style.transition = `all ${distanceTime}ms linear`
+            elmnt.style.left = targetxAxis + 'px'
+            elmnt.style.top = targetyAxis + 'px'
+        })
+
+        setTimeout(()=>{
+            elmnt.style.left = null
+            elmnt.style.top = null
+            elmnt.style.transition = null
+            elmnt.style.position = null
+        },distanceTime)
     }
 
     grabClickFunc(a, b, c, d) {
