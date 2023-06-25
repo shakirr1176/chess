@@ -119,7 +119,6 @@ class Chess {
 
                                 if(b[f].children[0] && b[f].classList.contains("active-box") && b[f].children[0].dataset.color == a.dataset.color){
                                     b[f].classList.remove("active-box")
-                                    b[f].classList.add("no-event")
                                 }
 
                                 if(b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row){
@@ -134,16 +133,27 @@ class Chess {
 
                                 if(b[e[0]] && b[e[0]].children[0]){
                                     b[e[0]].classList.remove("active-box")
-                                    b[e[0]].classList.add("no-event")
-                                    if(b[e[1]] && b[e[1]].children[0]){
+                                    if(a.dataset['color'] != b[e[0]].children[0].dataset['color']){
+                                        b[e[0]].classList.add("no-event")
+                                    }
+
+                                    if(b[e[1]]){
                                         b[e[1]].classList.remove("active-box")
                                         b[e[1]].classList.add("no-event")
+                                    }
+                                    if(b[e[1]] && b[e[1]].children[0]){
+                                        b[e[1]].classList.remove("active-box")
+                                        if(a.dataset['color'] != b[e[1]].children[0].dataset['color']){
+                                            b[e[1]].classList.add("no-event")
+                                        }
                                     }
                                 }
 
                                 if(b[e[1]] && b[e[1]].children[0]){
                                     b[e[1]].classList.remove("active-box")
-                                    b[e[1]].classList.add("no-event")
+                                    if(a.dataset['color'] != b[e[1]].children[0].dataset['color']){
+                                        b[e[1]].classList.add("no-event")
+                                    }
                                 }
 
                                 if(b[e[2]] && !b[e[2]].children[0]){
@@ -178,7 +188,6 @@ class Chess {
     knightMoveClickFunc(a, b, c) {
         if (a.classList.contains("knight")) {
             c.currentSelectedElement = a;
-            console.log(b);
             let d = [...b].indexOf(a.parentElement),
             e = [];
             c.knightMove.forEach((x) => {
@@ -706,7 +715,7 @@ class Chess {
     removeEvents(a) {
         "white" == a.dataset.color
             ? document.querySelectorAll(".black-element").forEach((a) => {
-                  a.classList.contains("no-event") || (console.log(a), a.classList.add("no-event"));
+                  a.classList.contains("no-event") || (a.classList.add("no-event"));
               })
             : document.querySelectorAll(".white-element").forEach((a) => {
                   a.classList.contains("no-event") || a.classList.add("no-event");
