@@ -178,8 +178,9 @@ class Chess {
     knightMoveClickFunc(a, b, c) {
         if (a.classList.contains("knight")) {
             c.currentSelectedElement = a;
+            console.log(b);
             let d = [...b].indexOf(a.parentElement),
-                e = [];
+            e = [];
             c.knightMove.forEach((x) => {
                 a.classList.contains(`${c.side[1]}-element`) && (x = -x), e.push(d + x);
             })
@@ -673,7 +674,7 @@ class Chess {
             }),
             "knight" == b.dataset.cat &&
                 e.addEventListener("click", () => {
-                    a.knightMoveClickFunc(e, a, f);
+                    a.knightMoveClickFunc(e, f,a);
                 }),
             "rook" == b.dataset.cat &&
                 e.addEventListener("click", () => {
