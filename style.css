@@ -53,17 +53,6 @@ body{
     animation: blink 600ms linear infinite alternate;
 }
 
-/* @keyframes blink{
-    0% {
-        opacity: 1;
-    }
-    100%{
-        opacity: 0.5;
-    }
-} */
-
-
-
 .first-row,.second-row{
     display: flex;
     justify-content: space-between;
@@ -117,7 +106,8 @@ body{
 }
 
 .black{
-    background: url(chessBoard.jpg);
+    /* background: url(chessBoard.jpg); */
+    background: rgb(91, 152, 177);
     background-position: center;
     background-size: cover;
 }
@@ -133,6 +123,8 @@ body{
     width: 50px;
     height: 50px;
     pointer-events: none;
+    /* position: relative;
+    z-index: 99; */
 }
 
 .active-box{
@@ -152,9 +144,12 @@ body{
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: rgb(111, 223, 0);
-    opacity: .7;
+    background-color: rgba(47, 255, 47, 0.699);
     position: absolute;
+}
+
+.previous-step{
+    background: rgba(255, 255, 0, 0.863);
 }
 
 .path-box{
@@ -165,8 +160,7 @@ body{
 }
 
 .active{
-    border: 3px solid yellow;
-
+    background: rgba(47, 255, 47, 0.699);
 }
 
 .black-place,.white-place{
