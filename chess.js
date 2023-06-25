@@ -9,15 +9,29 @@ class Chess {
             (this.gettingbox = ""),
             this.prevousItem = undefined,
             this.prevActiveBox = []
+            this.prevStep = []
             this.declare(),
             this.draw();
     }
+
     declare() {
-        (this.chessBox = document.querySelector(".chess-box")), (this.choose = document.querySelectorAll(".choose"));
+            this.chessBox = document.querySelector(".chess-box")
+            this.choose = document.querySelectorAll(".choose");
+            this.movementSound = document.querySelector('.piece-movement-sound')
     }
+
     draw() {
-        this.stage(), this.pawnMoveFunc(), this.knightMoveFunc(), this.rookMoveFunc(), this.bishopMoveFunc(), this.kingMoveFunc(), this.queenMoveFunc(), this.appendFunc(), this.grabeFunc();
+        this.stage()
+        this.pawnMoveFunc()
+        this.knightMoveFunc()
+        this.rookMoveFunc()
+        this.bishopMoveFunc() 
+        this.kingMoveFunc()
+        this.queenMoveFunc()
+        this.appendFunc()
+        this.grabeFunc();
     }
+
     stage() {
         for (let a, b = 0; 64 > b; b++) (a = document.createElement("div")), (a.className = "box"), this.chessBox.append(a);
         let a = this.chessBox.querySelectorAll(".box");
@@ -35,6 +49,7 @@ class Chess {
                     this.chooseElemnt(b, e);
         }
     }
+
     chooseElemnt(a, b) {
         let c = this.chessBox.querySelectorAll(".box");
         a == 6 && (c[b].innerHTML = `<div data-color="white" class="element pawn white-element"><img src="white/pawn-white.png" alt=""></div>`),
@@ -590,6 +605,17 @@ class Chess {
     }
 
     moveAnimation(target,elmnt){
+        this.movementSound.play()
+
+        if(this.prevStep[0] && this.prevStep[1]){
+            this.prevStep[0].classList.remove('previous-step')
+            this.prevStep[1].classList.remove('previous-step')
+        }
+        
+        target.classList.add('previous-step')
+        elmnt.parentElement.classList.add('previous-step')
+
+        this.prevStep = [target, elmnt.parentElement]
 
         let xAxis = (+elmnt.parentElement.dataset['column']-1)*60
         let yAxis = (+elmnt.parentElement.dataset['row'] - 1)*60
@@ -616,7 +642,11 @@ class Chess {
             elmnt.style.top = null
             elmnt.style.transition = null
             elmnt.style.position = null
+            console.dir(this.movementSound);
         },distanceTime)
+
+
+
     }
 
     grabClickFunc(a, b, c, d) {
