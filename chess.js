@@ -645,9 +645,11 @@ class Chess {
             elmnt.style.top = null
             elmnt.style.transition = null
             elmnt.style.position = null
+        },distanceTime)
+        setTimeout(()=>{
             this.movementSound.pause();
             this.movementSound.currentTime = 0;
-        },distanceTime)
+        },distanceTime + 300)
 
 
 
