@@ -124,9 +124,7 @@ class Chess {
 
                                 if(b[e[2]] && b[e[0]].dataset.row != b[e[2]].dataset.row){
                                     b[e[2]].classList.remove("active-box")
-                                    if(b[e[2]].classList.contains("no-event")){
-                                        b[e[2]].classList.add("no-event")
-                                    }
+                                    b[e[2]].classList.add("no-event")
                                 }
 
                                 if(b[e[3]] && b[e[0]].dataset.row != b[e[3]].dataset.row){
@@ -136,9 +134,11 @@ class Chess {
 
                                 if(b[e[0]] && b[e[0]].children[0]){
                                     b[e[0]].classList.remove("active-box")
-                                    b[e[1]].classList.remove("active-box")
                                     b[e[0]].classList.add("no-event")
-                                    b[e[1]].classList.add("no-event")
+                                    if(b[e[1]] && b[e[1]].children[0]){
+                                        b[e[1]].classList.remove("active-box")
+                                        b[e[1]].classList.add("no-event")
+                                    }
                                 }
 
                                 if(b[e[1]] && b[e[1]].children[0]){
@@ -157,8 +157,10 @@ class Chess {
                                 }
 
                                 if(15 < d && `${c.side[1]}` == a.dataset.color || 48 > d && `${c.side[0]}` == a.dataset.color){
+                                   if(b[e[1]]){
                                     b[e[1]].classList.remove("active-box")
                                     b[e[1]].classList.add("no-event")
+                                   }
                                 }
                             }
                         }
@@ -642,7 +644,8 @@ class Chess {
             elmnt.style.top = null
             elmnt.style.transition = null
             elmnt.style.position = null
-            console.dir(this.movementSound);
+            this.movementSound.pause();
+            this.movementSound.currentTime = 0;
         },distanceTime)
 
 
