@@ -37,18 +37,13 @@ class Chess {
         let a = this.chessBox.querySelectorAll(".box");
         for (let b = 0; 8 > b; b++) {
             let c = 0
-                // d = -2;
             for (let e = 8 * b; e < 8 * b + 8; e++)
                 0 == b % 2 ? (0 == e % 2 ? a[e].classList.add("black") : a[e].classList.add("white")) : 0 == e % 2 ? a[e].classList.add("white") : a[e].classList.add("black"),
                     (a[e].dataset.column = c + 1),
                     (a[e].dataset.row = b + 1),
                     (a[e].dataset.clockwise = c + b + 2),
                     (a[e].dataset.anticlockwise = b - c + 8),
-
-                    // (a[e].dataset.anticlockwise = 11 - c - b + d),
-
                     c++,
-                    // (d += 2),
                     this.chooseElemnt(b, e);
         }
     }
